@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +50,11 @@ public class PlayerControllerScript : Controller
         {
             if(UsesModifier(inputInfo.m_buttonModifier))
             {
-                if(inputInfo.m_holdable)
+                if(inputInfo.m_toggleable)
+                {
+                    ToggleInput(inputInfo.m_button, inputInfo.m_action);
+                }
+                else if(inputInfo.m_holdable)
                 {
                     if(inputInfo.m_holdAction == InputAction.None)
                     {
@@ -69,7 +73,7 @@ public class PlayerControllerScript : Controller
         }
     
     
-        if(m_inputContainer.HasNewInput())
+        if(m_inputContainer.HasNewInput())//uncomment code for debug logs
         {
             //shows all inputs saved////
             //InputAction[] data = m_inputContainer.GetInputString();
@@ -242,7 +246,7 @@ public class PlayerControllerScript : Controller
             }
         }
 
-        //start time
+        //start input time
         if(Input.GetKeyDown(inputKey))
         {
             if(!m_inputContainer.GetData(inputType1).isDown)
@@ -264,6 +268,26 @@ public class PlayerControllerScript : Controller
 
             m_inputContainer.SetInputData(inputType2, false);
         }
+    }
+
+    void ToggleInput(KeyCode inputKey, InputAction inputType)
+    {
+        if(m_inputContainer.GetInputLock(inputType))
+            return;
+
+
+        if(Input.GetKeyDown(inputKey))
+        {
+            if(!m_inputContainer.GetData(inputType).isDown)
+            {
+                m_inputContainer.SetInputData(inputType, true, true);
+            }
+            else
+            {
+                m_inputContainer.SetInputData(inputType, false);
+            }
+        }
+
     }
     #endregion
     
