@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +16,9 @@ public class ScriptableInputMap : ScriptableObject
             
             [Tooltip("OPTIONAL button modifier\nIf set this button will need to be pressed at the same time as button to activate action")]
             public KeyCode m_buttonModifier;
+
+            [Tooltip("If this input will be toggled each press. Will set input as held down on first press then set as up the next.\nInput is set to being held down right away and only uses Action, NOT HoldAction")]
+            public bool m_toggleable;
 
             [Tooltip("If the Button should be checked for being held down")]
             public bool m_holdable;
